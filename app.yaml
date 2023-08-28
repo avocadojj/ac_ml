@@ -1,0 +1,16 @@
+runtime: python39  # replace with your desired runtime
+instance_class: F2
+env: standard  # Use the standard environment
+
+entrypoint: python main.py  # Replace with the name of your Python file if it's not main.py
+
+automatic_scaling:
+  max_instances: 3  # The maximum number of instances for your app
+
+resources:
+  cpu: 1
+  memory_gb: 1
+  disk_size_gb: 10
+
+env_variables:
+  # Environment variables for your app, if needed
