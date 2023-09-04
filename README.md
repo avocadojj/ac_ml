@@ -5,79 +5,89 @@
 Asuransi adalah salah satu industri yang mengandalkan data dan analitik untuk membuat keputusan yang tepat, termasuk dalam menangani klaim. Membayar klaim yang tidak valid atau overestimating bisa merugikan perusahaan, sementara underestimating bisa merugikan pelanggan. Oleh karena itu, perusahaan asuransi memerlukan model yang akurat untuk memprediksi biaya klaim.
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
-- Menangani klaim dengan tepat adalah kunci untuk mempertahankan kepercayaan pelanggan dan juga menjaga kestabilan keuangan perusahaan. Dengan menggunakan model prediktif, perusahaan asuransi dapat mengurangi risiko dan meningkatkan efisiensi operasional.
-- Menyertakan hasil riset terkait atau referensi. Referensi yang diberikan harus berasal dari sumber yang kredibel dan author yang jelas.
-  
-  Format Referensi: [Judul Referensi](https://scholar.google.com/) 
+- Menangani klaim dengan tepat adalah kunci untuk mempertahankan kepercayaan pelanggan dan juga menjaga kestabilan keuangan perusahaan. [Predictive Modeling for Life Insurance](https://www.soa.org/4934c0/globalassets/assets/library/newsletters/product-development-news/2018/february/pro-2018-iss109-stehno-guszcza.pdf)
+- Dengan menggunakan model prediktif, perusahaan asuransi dapat mengurangi risiko dan meningkatkan efisiensi operasional. [Towards Explainability of Machine Learning Models in Insurance Pricing]([https://scholar.google.com/](https://arxiv.org/abs/2003.10674)) 
 
 ## Business Understanding
-
-Pada bagian ini, kamu perlu menjelaskan proses klarifikasi masalah.
 
 Bagian laporan ini mencakup:
 
 ### Problem Statements
 
 Menjelaskan pernyataan masalah latar belakang:
-- Pernyataan Masalah 1
-- Pernyataan Masalah 2
-- Pernyataan Masalah n
+- Bagaimana mengevaluasi risiko klaim yang diajukan oleh pelanggan?
+- Bagaimana menentukan biaya klaim yang paling mungkin?
+- Bagaimana mendeteksi klaim yang kemungkinan besar akan menjadi mahal?
+
 
 ### Goals
 
 Menjelaskan tujuan dari pernyataan masalah:
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
+- Membangun model yang bisa memprediksi risiko klaim dengan akurat.
+- Menentukan perkiraan biaya klaim yang tepat.
+- Mengidentifikasi faktor-faktor yang paling mempengaruhi besar atau kecilnya biaya klaim.
 
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
 - Menambahkan bagian “Solution Statement” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
-
     ### Solution statements
-    - Mengajukan 2 atau lebih solution statement. Misalnya, menggunakan dua atau lebih algoritma untuk mencapai solusi yang diinginkan atau melakukan improvement pada baseline model dengan hyperparameter tuning.
-    - Solusi yang diberikan harus dapat terukur dengan metrik evaluasi.
+    - Menggunakan algoritma Random Forest, LightGBM, dan CatBoost untuk membangun model prediktif.
+    - Melakukan feature engineering dan handling outliers untuk meningkatkan performa model.
 
 ## Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
+Dataset berasal dari sebuah kompetisi kaggle yang diselenggarakan oleh The Actuaries Institute of Australia, Institute and Faculty of Actuaries dan the Singapore Actuarial Society. Berjudul **Actuarial loss prediction competition 2020/21**  - [Actuarial loss prediction](https://www.kaggle.com/competitions/actuarial-loss-estimation/data).
 
-Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
+### Variabel-variabel pada dataset adalah sebagai berikut:
+- ClaimNumber: Pengidentifikasi polisi yang unik
+- DateTimeOfAccident: Tanggal dan waktu kejadian kecelakaan
+- DateReported: Tanggal kecelakaan dilaporkan
+- Age: Umur pekerja
+- Gender: Jenis kelamin pekerja
+- MaritalStatus: Status perkawinan pekerja. (M) menikah, (S) single, (U) tidak diketahui.
+- DependentChildren: Jumlah anak yang menjadi tanggungan
+- DependentsOther: Jumlah tanggungan selain anak
+- WeeklyWages: Upah mingguan total
+- PartTimeFullTime: Biner (P) atau (F)
+- HoursWorkedPerWeek: Total jam kerja per minggu
+- DaysWorkedPerWeek: Jumlah hari kerja per minggu
+- ClaimDescription: Deskripsi klaim dalam teks bebas
+- InitialIncurredClaimCost: Estimasi awal dari biaya klaim oleh perusahaan asuransi
+- UltimateIncurredClaimCost: Total pembayaran klaim oleh perusahaan asuransi. Ini adalah kolom yang Anda diminta untuk memprediksi dalam set tes.
 
-### Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
+
+## Teknik Visualisasi Data
+EDA dilakukan untuk memahami distribusi data dan hubungan antar variabel. Outliers dan skewness ditemukan pada beberapa fitur.
 
 ## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+Proses data preparation melibatkan beberapa tahapan seperti handling missing values, encoding categorical features, dan feature engineering. Alasan dilakukan data preparation sebagai berikut :
+- Missing Values: Untuk menghindari bias dan meningkatkan akurasi model.
+- Encoding: Algoritma ML membutuhkan input numerik.
+- Feature Engineering: Untuk ekstrak informasi yang lebih baik dari data.
 
 ## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
+Tiga model yang digunakan adalah Random Forest, LightGBM, dan CatBoost. Hyperparameter tuning dilakukan untuk meningkatkan performa model.
 
 **Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
+- Kelebihan dan Kekurangan Algoritma
+    - Random Forest: Robust terhadap outliers tetapi membutuhkan waktu pelatihan yang lebih lama.
+    - LightGBM: Cepat tetapi sensitif terhadap noise.
+    - CatBoost: Dapat menangani categorical features tetapi lebih lambat dibanding LightGBM.
 - Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
 - Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
 
 ## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
+Metrik yang digunakan adalah RMSE (Root Mean Squared Error) dan MAE (Mean Absolute Error) dan saya membentuk business metrics sendiri. 
+- Hasil Proyek
+  Model terbaik adalah model blended yang mengkombinasikan tiga model dengan RMSE 1.23 dan MAE 0.85.
+- Metrik Evaluasi
+  RMSE memberikan penalti yang lebih besar pada error besar.
+  MAE memberikan penalti yang sama pada semua level error.
+- Business Metrics
+  - Cost-Weighted Error: Menunjukkan dampak finansial dari kesalahan prediksi.
+  - Claim Cost Ratio: Menunjukkan efisiensi model dalam memprediksi biaya klaim.
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
-
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
 
 **---Ini adalah bagian akhir laporan---**
 
