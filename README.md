@@ -55,9 +55,33 @@ Dataset berasal dari sebuah kompetisi kaggle yang diselenggarakan oleh The Actua
 ## Teknik Visualisasi Data
 EDA dilakukan untuk memahami distribusi data dan hubungan antar variabel. Outliers dan skewness ditemukan pada beberapa fitur.
 - Histogram
-- ![Histogram dari data](https://github.com/avocadojj/ac_ml/blob/1c4e2a267000c406553dcafa4e8d3f119a5eee22/images/eda.png)
+![Histogram dari data](https://github.com/avocadojj/ac_ml/blob/1c4e2a267000c406553dcafa4e8d3f119a5eee22/images/eda.png)
+1. AnakTanggungan: Rentangnya dari 0 hingga 9, dengan sebagian besar klaiman tidak memiliki anak tanggungan.
+2. TanggunganLainnya: Rentangnya dari 0 hingga 5, dengan sebagian besar klaiman tidak memiliki tanggungan lain.
+3. HariBekerjaPerMinggu: Rentangnya dari 1 hingga 7, dengan sebagian besar klaiman bekerja 5 hari dalam seminggu.
+4. BiayaKlaimAwal: Rentangnya dari 1 hingga 2.000.000, menunjukkan variasi biaya klaim awal yang signifikan.
+5. BiayaKlaimAkhir: Rentangnya dari sekitar 121,89 hingga 4.027.136, menunjukkan variasi biaya klaim akhir yang signifikan.
+
 - Korelasi antar variabel
 ![images/correlation.png](https://github.com/avocadojj/ac_ml/blob/ac472bd04081b79fdddec5c21f5a496f150cf955/images/correlation.png) 
+1. Fitur seperti "UpahMingguan," "JamBekerjaPerMinggu," "BiayaKlaimAwal," dan "BiayaKlaimAkhir" menunjukkan kecondongan (skewness) yang signifikan dan kemungkinan adanya pencilan (outliers).
+2. "JamBekerjaPerMinggu" memiliki beberapa contoh di mana nilai-nilainya jauh lebih tinggi, yang bisa jadi adalah pencilan. Nilai maksimum 640 jam jelas merupakan pencilan, karena jauh lebih tinggi daripada nilai persentil ke-99 yaitu 60 jam. Metode yang saya sarankan untuk memperbaiki pencilan adalah Metode Penutupan (Capping Method).
+Kelebihan: Dapat menggunakan pengetahuan domain atau persentil (misalnya, persentil ke-99) untuk membatasi nilai.
+Tidak bergantung pada asumsi distribusi normal.
+Kekurangan: Memerlukan pemilihan manual untuk nilai batas (cap value), yang mungkin bersifat sewenang-wenang.
+Mungkin kehilangan beberapa informasi jika penutupan terlalu agresif.
+```
+def capping(train_data, test_data, variable):
+    # Calculate the 1st and 99th percentiles
+    lower_bound = train_data[variable].quantile(0.01)
+    upper_bound = train_data[variable].quantile(0.99)
+
+    # Replace the outliers
+    train_data[variable] = train_data[variable].apply(lambda x: lower_bound if x < lower_bound else (upper_bound if x > upper_bound else x))
+    test_data[variable] = test_data[variable].apply(lambda x: lower_bound if x < lower_bound else (upper_bound if x > upper_bound else x))
+
+    return train_data, test_data
+```
 
 ## Data Preparation
 Proses data preparation melibatkan beberapa tahapan seperti handling missing values, encoding categorical features, dan feature engineering. Alasan dilakukan data preparation sebagai berikut :
