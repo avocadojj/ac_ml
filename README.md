@@ -183,6 +183,10 @@ param_grids = {
 }
 ```
 Dalam pelatihan ini, XGBoost, LightGBM, dan CatBoost adalah algoritma yang sering digunakan dengan variasi parameter untuk meningkatkan performa. Misalnya, dalam XGBoost, kita menyetel learning_rate antara 0,02 dan 0,025 untuk mengontrol seberapa cepat model belajar, dan menggunakan max_depth antara 5 dan 7 untuk membatasi kedalaman pohon keputusan. Jumlah pohon (n_estimators) diatur menjadi 500, dan kita juga mengontrol persentase fitur dan sampel yang digunakan di setiap pohon melalui colsample_bytree dan subsample. Metode pelatihan pohon diatur ke 'hist'. LightGBM, di sisi lain, juga menggunakan learning_rate dan n_estimators yang mirip tetapi menambahkan parameter num_leaves untuk mengontrol jumlah daun maksimum di setiap pohon dan feature_fraction untuk bagian dari fitur yang digunakan. CatBoost juga memiliki pendekatan yang serupa; jumlah iterasi atau pohon diatur antara 100 dan 200, dan kedalaman pohon bisa 6, 8, atau 10. Untuk menghindari output log, logging_level di CatBoost diatur ke 'Silent'. Dengan penyetelan parameter ini, kita berusaha mendapatkan model yang paling optimal untuk data yang kita miliki.
+Berikut factor pengaruh pada setiap model
+![Faktor XGBoost](https://github.com/avocadojj/ac_ml/blob/fa18ef44bd85bad4849dff44d4998a1ec76239cd/images/xgbfactor.png)
+![Faktor LightGBM](https://github.com/avocadojj/ac_ml/blob/fa18ef44bd85bad4849dff44d4998a1ec76239cd/images/lgmfactor.png)
+![Faktor CatBoost](https://github.com/avocadojj/ac_ml/blob/fa18ef44bd85bad4849dff44d4998a1ec76239cd/images/catboost.png)
 Untuk percobaan, digunakan model gabungan yang terdiri atas 0.4 XGBoost + 0.3 LightGBM + 0.3 CatBoost disebut Blended Model.
 
 
@@ -202,16 +206,35 @@ Berdasarkan hasil RMSE & MSE dipilih Blended Model yang terbaik karene memiliki 
   - Cost-Weighted Error: Menunjukkan dampak finansial dari kesalahan prediksi.
   - Claim Cost Ratio: Menunjukkan efisiensi model dalam memprediksi biaya klaim.
   Dengan menggunakan dua metrik bisnis tersebut, _blended model_ dilakukan pengujian dengan hasil yakni sebagai berikut pada data validasi
+
+
 |               | RMSE  | MSE  | Total Overestimation | Total Underestimation | Cost-Weighted Error | Claim Cost Ratio |
 |---------------|-------|------|----------------------|-----------------------|---------------------|------------------|
 | Blended Model | 24515 | 7407 | 1151423              | -1151423              | 174706947           | 1.008                |
+
+
 - Total Overestimation dan Underestimation: Model overestimate sekitar 1,151,423 dan underestimate sebesar -1,151,423. Ini menunjukkan bahwa model memiliki kecenderungan yang seimbang antara overestimation dan underestimation, tetapi jumlah absolut dari kedua kesalahan ini adalah aspek yang perlu diperhatikan.
 - Cost-Weighted Error: Nilai ini adalah sekitar 174,706,948, yang dihitung berdasarkan biaya yang diterapkan untuk overestimation dan underestimation. Ini adalah indikator penting dari sejauh mana kesalahan prediksi model akan mempengaruhi keuangan perusahaan.
 - Claim Cost Ratio: Rasio ini adalah sekitar 1.008, menunjukkan bahwa model memprediksi biaya klaim yang hampir sebanding dengan biaya klaim sebenarnya.
 Dengan mempertimbangkan metrik-metrik tersebut, dapat mengatakan bahwa model telah melakukan pekerjaan yang relatif baik dalam memprediksi 'Ultimate Incurred Claim Cost'. Namun, terdapat ruang untuk perbaikan, terutama dalam mengurangi Cost-Weighted Error untuk meminimalkan dampak finansial dari kesalahan prediksi.
 
 
-
+## Conclusion
+1. Fine-Tuning Model
+Optimasi Hyperparameter: Melakukan tuning lebih lanjut pada hyperparameter model bisa meningkatkan performa. Ini bisa dilakukan dengan pendekatan seperti Grid Search atau Bayesian Optimization.
+2. Feature Engineering
+Eksplorasi Fitur Tambahan: Mencoba menambahkan fitur-fitur baru atau interaksi antar fitur yang bisa memperkaya model.
+Revisi pada Outlier Handling: Strategi capping pada outlier tampak efektif tetapi perlu dievaluasi lebih lanjut. Alternatif lain bisa berupa transformasi logaritmik atau menggunakan metode robust scaling.
+3. Teknik Ensemble
+Menggunakan teknik ensembling seperti stacking atau bagging bisa membantu meningkatkan performa model.
+4. Cost-Sensitive Learning
+Mengintegrasikan biaya dari overestimation dan underestimation ke dalam fungsi loss model, sehingga model bisa lebih sensitif terhadap jenis kesalahan yang lebih mahal.
+5. Evaluasi Teknik Text Mining
+Karena TF-IDF meningkatkan MSE, perlu dilakukan evaluasi lebih lanjut pada teknik text mining yang digunakan. Bisa jadi pendekatan lain seperti Word Embeddings atau metode NLP lainnya lebih efektif.
+6. Validasi Silang (Cross-Validation)
+Menggunakan validasi silang untuk memastikan bahwa model yang telah dikembangkan robust dan generalizable untuk data yang belum pernah dilihat sebelumnya.
+7. Monitoring dan Feedback Loop
+Setelah model di-deploy, penting untuk memonitor performanya dan memperbarui model secara berkala dengan data terbaru. Feedback dari pengguna juga bisa menjadi sumber informasi yang sangat berharga.
 
 
 **---Ini adalah bagian akhir laporan---**
