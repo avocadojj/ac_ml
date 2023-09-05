@@ -54,7 +54,10 @@ Dataset berasal dari sebuah kompetisi kaggle yang diselenggarakan oleh The Actua
 
 ## Teknik Visualisasi Data
 EDA dilakukan untuk memahami distribusi data dan hubungan antar variabel. Outliers dan skewness ditemukan pada beberapa fitur.
-
+- Histogram
+![Histogram dari data](/assets/images/eda.png)
+- Korelasi antar variabel
+![Korelasi](/assets/images/correlation.png)  
 
 ## Data Preparation
 Proses data preparation melibatkan beberapa tahapan seperti handling missing values, encoding categorical features, dan feature engineering. Alasan dilakukan data preparation sebagai berikut :
