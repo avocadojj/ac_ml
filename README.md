@@ -116,7 +116,7 @@ Tiga model yang digunakan adalah XGBoost, LightGBM, dan CatBoost. Hyperparameter
 
 Dari ketiga model dilakukan pencarian parameter optimal menggunakan metode _RandomizedSearchCV_. XGBoost, LightGBM, dan CatBoost adalah algoritma yang sering digunakan dengan variasi parameter untuk meningkatkan performa. Misalnya, dalam XGBoost, kita menyetel learning_rate antara 0,02 dan 0,025 untuk mengontrol seberapa cepat model belajar, dan menggunakan max_depth antara 5 dan 7 untuk membatasi kedalaman pohon keputusan. Jumlah pohon (n_estimators) diatur menjadi 500, dan kita juga mengontrol persentase fitur dan sampel yang digunakan di setiap pohon melalui colsample_bytree dan subsample. Metode pelatihan pohon diatur ke 'hist'. LightGBM, di sisi lain, juga menggunakan learning_rate dan n_estimators yang mirip tetapi menambahkan parameter num_leaves untuk mengontrol jumlah daun maksimum di setiap pohon dan feature_fraction untuk bagian dari fitur yang digunakan. CatBoost juga memiliki pendekatan yang serupa; jumlah iterasi atau pohon diatur antara 100 dan 200, dan kedalaman pohon bisa 6, 8, atau 10. Untuk menghindari output log, logging_level di CatBoost diatur ke 'Silent'. Dengan penyetelan parameter ini, kita berusaha mendapatkan model yang paling optimal untuk data yang kita miliki.
 
-####Berikut factor pengaruh pada setiap model
+###Berikut faktor pengaruh pada setiap model
 ![Faktor XGBoost](https://github.com/avocadojj/ac_ml/blob/main/images/xgbfactor.png)
 ![Faktor LightGBM](https://github.com/avocadojj/ac_ml/blob/main/images/lgmfactor.png)
 ![Faktor CatBoost](https://github.com/avocadojj/ac_ml/blob/main/images/catboost.png)
