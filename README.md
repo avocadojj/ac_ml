@@ -28,11 +28,10 @@ Menjelaskan tujuan dari pernyataan masalah:
 - Mengidentifikasi faktor-faktor yang paling mempengaruhi besar atau kecilnya biaya klaim.
 
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menambahkan bagian “Solution Statement” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
-    ### Solution statements
-    - Menggunakan algoritma Random Forest, LightGBM, dan CatBoost untuk membangun model prediktif.
-    - Melakukan feature engineering dan handling outliers untuk meningkatkan performa model.
+### Solution statements
+
+- Menggunakan algoritma Random Forest, LightGBM, dan CatBoost untuk membangun model prediktif.
+- Melakukan feature engineering dan handling outliers untuk meningkatkan performa model.
 
 ## Data Understanding
 Dataset berasal dari sebuah kompetisi kaggle yang diselenggarakan oleh The Actuaries Institute of Australia, Institute and Faculty of Actuaries dan the Singapore Actuarial Society. Berjudul **Actuarial loss prediction competition 2020/21**  - [Actuarial loss prediction](https://www.kaggle.com/competitions/actuarial-loss-estimation/data).
@@ -67,13 +66,35 @@ Proses data preparation melibatkan beberapa tahapan seperti handling missing val
 - Feature Engineering: Untuk ekstrak informasi yang lebih baik dari data.
 
 ## Modeling
-Tiga model yang digunakan adalah Random Forest, LightGBM, dan CatBoost. Hyperparameter tuning dilakukan untuk meningkatkan performa model.
+Tiga model yang digunakan adalah XGBoost, LightGBM, dan CatBoost. Hyperparameter tuning dilakukan untuk meningkatkan performa model. Model - model tersebut secara singkat dapat dijelaskan sebagai berikut :
+- XGboost
+  Menggunakan pendekatan yang disebut "gradient boosting" pada pohon keputusan. Ini berarti model dibangun dengan cara iteratif, di mana setiap pohon baru berusaha memperbaiki kesalahan yang dibuat oleh kumpulan pohon yang sudah ada. XGBoost menggunakan fungsi tujuan yang dapat disesuaikan dan teknik regularisasi untuk menghindari overfitting. Ini membuatnya sangat fleksibel dan memungkinkan untuk mengoptimalkan berbagai jenis masalah prediksi.
+  > Bayangkan kamu sedang bermain permainan tebak-tebakan. Kamu punya banyak teman yang membantu kamu menebak jawabannya. Setiap teman mencoba menebak sedikit, dan kemudian teman berikutnya melihat apa yang sudah ditebak sebelumnya dan mencoba memperbaiki tebakan. Akhirnya, semua tebakan digabungkan untuk mendapatkan jawaban yang paling tepat.
+- LightGBM
+  Menggunakan pohon keputusan seperti XGBoost dan CatBoost, tetapi dengan pendekatan yang disebut "histogram-based learning". Ini mempercepat proses pelatihan dan mengurangi penggunaan memori. LightGBM dirancang untuk efisiensi dan kecepatan, sehingga sangat cocok untuk dataset yang besar atau dimensi yang tinggi. LightGBM juga memiliki dukungan untuk pelatihan menggunakan GPU, yang bisa mempercepat proses lebih lanjut.
+  > Bayangkan kamu memiliki banyak kucing yang bisa berbicara, dan setiap kucing ini bisa membantu kamu menjawab pertanyaan dengan melihat apa yang ada di sekitar—seperti gambar atau kata-kata. Mereka semua membantu satu sama lain untuk memberikan jawaban yang paling akurat.
+- CatBoost
+  Juga menggunakan pohon keputusan, tetapi dengan fokus khusus pada fitur kategorikal. Tidak perlu melakukan "one-hot encoding" atau transformasi serupa pada fitur kategorikal karena CatBoost dapat menanganinya secara otomatis. CatBoost memiliki mekanisme regularisasi bawaan yang membantu model menjadi lebih robust terhadap overfitting. Ini memungkinkan model untuk memberikan performa yang baik meskipun dengan data yang lebih sedikit atau lebih banyak noise.
+  > Bayangkan kamu membangun menara dari balok kayu. Tapi, alih-alih menumpuk balok satu per satu dari bawah ke atas, kamu mulai dari balok yang paling penting dulu, lalu menambahkan balok lainnya untuk membuat menara semakin kuat dan tinggi. Ini membantu kamu membangun menara lebih cepat dan lebih kuat.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
+Instalasi ketiga model:
+```
+pip install xgboost
+pip install lightgbm
+pip install catboost
+```
+
 - Kelebihan dan Kekurangan Algoritma
-    - Random Forest: Robust terhadap outliers tetapi membutuhkan waktu pelatihan yang lebih lama.
-    - LightGBM: Cepat tetapi sensitif terhadap noise.
-    - CatBoost: Dapat menangani categorical features tetapi lebih lambat dibanding LightGBM.
+    - XGBoost
+          - *Kelebihan*: Tinggi performa, efisien, fleksibel.
+          - *Kekurangan*: Banyak hyperparameter, memerlukan sumber daya besar.
+    - LightGBM
+          - *Kelebihan*: Cepat dan efisien, rendah penggunaan memori.
+          - *Kekurangan*: Overfitting pada data kecil, beberapa parameter kompleks.
+    - CatBoost
+          - *Kelebihan*: Penanganan fitur kategorikal, robust terhadap overfitting.
+          - *Kekurangan*:  Lambat dalam pelatihan, beberapa parameter kompleks.
+
 - Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
 - Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
 
@@ -93,4 +114,4 @@ Metrik yang digunakan adalah RMSE (Root Mean Squared Error) dan MAE (Mean Absolu
 
 _Catatan:_
 - _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+
