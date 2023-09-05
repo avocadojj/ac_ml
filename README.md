@@ -56,7 +56,7 @@ Dataset berasal dari sebuah kompetisi kaggle yang diselenggarakan oleh The Actua
 ## Teknik Visualisasi Data
 EDA dilakukan untuk memahami distribusi data dan hubungan antar variabel. Outliers dan skewness ditemukan pada beberapa fitur.
 ###Histogram
-![eda](https://github.com/avocadojj/ac_ml/blob/main/images/eda.png)
+![eda](https://github.com/avocadojj/ac_ml/assets/56474181/f13f9474-7190-4892-bba5-ca78d34cd75a)
 
 - AnakTanggungan: Rentangnya dari 0 hingga 9, dengan sebagian besar klaiman tidak memiliki anak tanggungan.
 - TanggunganLainnya: Rentangnya dari 0 hingga 5, dengan sebagian besar klaiman tidak memiliki tanggungan lain.
@@ -65,7 +65,8 @@ EDA dilakukan untuk memahami distribusi data dan hubungan antar variabel. Outlie
 - BiayaKlaimAkhir: Rentangnya dari sekitar 121,89 hingga 4.027.136, menunjukkan variasi biaya klaim akhir yang signifikan.
 
 ### Korelasi antar variabel
-![korelasi](https://github.com/avocadojj/ac_ml/blob/main/images/correlation.png)
+![correlation](https://github.com/avocadojj/ac_ml/assets/56474181/fa1dce3f-4e00-4f7c-bd6e-75697acee07f)
+
 
 - Fitur seperti "UpahMingguan," "JamBekerjaPerMinggu," "BiayaKlaimAwal," dan "BiayaKlaimAkhir" menunjukkan kecondongan (skewness) yang signifikan dan kemungkinan adanya pencilan (outliers).
 - "JamBekerjaPerMinggu" memiliki beberapa contoh di mana nilai-nilainya jauh lebih tinggi, yang bisa jadi adalah pencilan. Nilai maksimum 640 jam jelas merupakan pencilan, karena jauh lebih tinggi daripada nilai persentil ke-99 yaitu 60 jam. Metode yang saya sarankan untuk memperbaiki pencilan adalah Metode Penutupan (Capping Method).
@@ -117,9 +118,9 @@ Tiga model yang digunakan adalah XGBoost, LightGBM, dan CatBoost. Hyperparameter
 Dari ketiga model dilakukan pencarian parameter optimal menggunakan metode _RandomizedSearchCV_. XGBoost, LightGBM, dan CatBoost adalah algoritma yang sering digunakan dengan variasi parameter untuk meningkatkan performa. Misalnya, dalam XGBoost, kita menyetel learning_rate antara 0,02 dan 0,025 untuk mengontrol seberapa cepat model belajar, dan menggunakan max_depth antara 5 dan 7 untuk membatasi kedalaman pohon keputusan. Jumlah pohon (n_estimators) diatur menjadi 500, dan kita juga mengontrol persentase fitur dan sampel yang digunakan di setiap pohon melalui colsample_bytree dan subsample. Metode pelatihan pohon diatur ke 'hist'. LightGBM, di sisi lain, juga menggunakan learning_rate dan n_estimators yang mirip tetapi menambahkan parameter num_leaves untuk mengontrol jumlah daun maksimum di setiap pohon dan feature_fraction untuk bagian dari fitur yang digunakan. CatBoost juga memiliki pendekatan yang serupa; jumlah iterasi atau pohon diatur antara 100 dan 200, dan kedalaman pohon bisa 6, 8, atau 10. Untuk menghindari output log, logging_level di CatBoost diatur ke 'Silent'. Dengan penyetelan parameter ini, kita berusaha mendapatkan model yang paling optimal untuk data yang kita miliki.
 
 ###Berikut faktor pengaruh pada setiap model
-![Faktor XGBoost](https://github.com/avocadojj/ac_ml/blob/main/images/xgbfactor.png)
-![Faktor LightGBM](https://github.com/avocadojj/ac_ml/blob/main/images/lgmfactor.png)
-![Faktor CatBoost](https://github.com/avocadojj/ac_ml/blob/main/images/catboost.png)
+![xgbfactor](https://github.com/avocadojj/ac_ml/assets/56474181/41acd467-f325-4ddb-a4f6-8570da9acbd7)
+![catboost](https://github.com/avocadojj/ac_ml/assets/56474181/321c7548-6e2b-4661-a397-99613d7a1da5)
+![lgmfactor](https://github.com/avocadojj/ac_ml/assets/56474181/a00205ba-5957-42c0-8091-41a24fffadeb)
 Untuk percobaan, digunakan model gabungan yang terdiri atas 0.4 XGBoost + 0.3 LightGBM + 0.3 CatBoost disebut Blended Model.
 
 
