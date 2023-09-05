@@ -58,19 +58,19 @@ EDA dilakukan untuk memahami distribusi data dan hubungan antar variabel. Outlie
 - Histogram
 ![eda](https://github.com/avocadojj/ac_ml/blob/main/images/eda.png)
 
-1. AnakTanggungan: Rentangnya dari 0 hingga 9, dengan sebagian besar klaiman tidak memiliki anak tanggungan.
-2. TanggunganLainnya: Rentangnya dari 0 hingga 5, dengan sebagian besar klaiman tidak memiliki tanggungan lain.
-3. HariBekerjaPerMinggu: Rentangnya dari 1 hingga 7, dengan sebagian besar klaiman bekerja 5 hari dalam seminggu.
-4. BiayaKlaimAwal: Rentangnya dari 1 hingga 2.000.000, menunjukkan variasi biaya klaim awal yang signifikan.
-5. BiayaKlaimAkhir: Rentangnya dari sekitar 121,89 hingga 4.027.136, menunjukkan variasi biaya klaim akhir yang signifikan.
+- AnakTanggungan: Rentangnya dari 0 hingga 9, dengan sebagian besar klaiman tidak memiliki anak tanggungan.
+- TanggunganLainnya: Rentangnya dari 0 hingga 5, dengan sebagian besar klaiman tidak memiliki tanggungan lain.
+- HariBekerjaPerMinggu: Rentangnya dari 1 hingga 7, dengan sebagian besar klaiman bekerja 5 hari dalam seminggu.
+- BiayaKlaimAwal: Rentangnya dari 1 hingga 2.000.000, menunjukkan variasi biaya klaim awal yang signifikan.
+- BiayaKlaimAkhir: Rentangnya dari sekitar 121,89 hingga 4.027.136, menunjukkan variasi biaya klaim akhir yang signifikan.
 
 - Korelasi antar variabel
 ![korelasi](https://github.com/avocadojj/ac_ml/blob/main/images/eda.png)
 
-1. Fitur seperti "UpahMingguan," "JamBekerjaPerMinggu," "BiayaKlaimAwal," dan "BiayaKlaimAkhir" menunjukkan kecondongan (skewness) yang signifikan dan kemungkinan adanya pencilan (outliers).
-2. "JamBekerjaPerMinggu" memiliki beberapa contoh di mana nilai-nilainya jauh lebih tinggi, yang bisa jadi adalah pencilan. Nilai maksimum 640 jam jelas merupakan pencilan, karena jauh lebih tinggi daripada nilai persentil ke-99 yaitu 60 jam. Metode yang saya sarankan untuk memperbaiki pencilan adalah Metode Penutupan (Capping Method).
-  - Kelebihan: Dapat menggunakan pengetahuan domain atau persentil (misalnya, persentil ke-99) untuk membatasi nilai & Tidak bergantung pada asumsi distribusi normal.
-  - Kekurangan: Memerlukan pemilihan manual untuk nilai batas sehingga dapat kehilangan beberapa informasi jika penutupan terlalu agresif.
+- Fitur seperti "UpahMingguan," "JamBekerjaPerMinggu," "BiayaKlaimAwal," dan "BiayaKlaimAkhir" menunjukkan kecondongan (skewness) yang signifikan dan kemungkinan adanya pencilan (outliers).
+- "JamBekerjaPerMinggu" memiliki beberapa contoh di mana nilai-nilainya jauh lebih tinggi, yang bisa jadi adalah pencilan. Nilai maksimum 640 jam jelas merupakan pencilan, karena jauh lebih tinggi daripada nilai persentil ke-99 yaitu 60 jam. Metode yang saya sarankan untuk memperbaiki pencilan adalah Metode Penutupan (Capping Method).
+    - Kelebihan: Dapat menggunakan pengetahuan domain atau persentil (misalnya, persentil ke-99) untuk membatasi nilai & Tidak bergantung pada asumsi distribusi normal.
+    - Kekurangan: Memerlukan pemilihan manual untuk nilai batas sehingga dapat kehilangan beberapa informasi jika penutupan terlalu agresif.
 
 
 ## Data Preparation
