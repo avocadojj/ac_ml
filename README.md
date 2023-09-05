@@ -55,9 +55,9 @@ Dataset berasal dari sebuah kompetisi kaggle yang diselenggarakan oleh The Actua
 ## Teknik Visualisasi Data
 EDA dilakukan untuk memahami distribusi data dan hubungan antar variabel. Outliers dan skewness ditemukan pada beberapa fitur.
 - Histogram
-[![[Histogram dari data](/assets/images/eda.png)](https://github.com/avocadojj/ac_ml/blob/4a0194ce1edce2ecb70902a96d8157d07634595d/images/correlation.png)](https://github.com/avocadojj/ac_ml/blob/1c4e2a267000c406553dcafa4e8d3f119a5eee22/images/eda.png)
+- ![Histogram dari data](https://github.com/avocadojj/ac_ml/blob/1c4e2a267000c406553dcafa4e8d3f119a5eee22/images/eda.png)
 - Korelasi antar variabel
-![images/correlation.png](https://github.com/avocadojj/ac_ml/blob/ac472bd04081b79fdddec5c21f5a496f150cf955/images/correlation.png))  
+![images/correlation.png](https://github.com/avocadojj/ac_ml/blob/ac472bd04081b79fdddec5c21f5a496f150cf955/images/correlation.png) 
 
 ## Data Preparation
 Proses data preparation melibatkan beberapa tahapan seperti handling missing values, encoding categorical features, dan feature engineering. Alasan dilakukan data preparation sebagai berikut :
