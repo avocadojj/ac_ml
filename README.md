@@ -69,9 +69,8 @@ EDA dilakukan untuk memahami distribusi data dan hubungan antar variabel. Outlie
 
 1. Fitur seperti "UpahMingguan," "JamBekerjaPerMinggu," "BiayaKlaimAwal," dan "BiayaKlaimAkhir" menunjukkan kecondongan (skewness) yang signifikan dan kemungkinan adanya pencilan (outliers).
 2. "JamBekerjaPerMinggu" memiliki beberapa contoh di mana nilai-nilainya jauh lebih tinggi, yang bisa jadi adalah pencilan. Nilai maksimum 640 jam jelas merupakan pencilan, karena jauh lebih tinggi daripada nilai persentil ke-99 yaitu 60 jam. Metode yang saya sarankan untuk memperbaiki pencilan adalah Metode Penutupan (Capping Method).
-Kelebihan: Dapat menggunakan pengetahuan domain atau persentil (misalnya, persentil ke-99) untuk membatasi nilai.
-Tidak bergantung pada asumsi distribusi normal.
-Kekurangan: Memerlukan pemilihan manual untuk nilai batas sehingga dapat kehilangan beberapa informasi jika penutupan terlalu agresif.
+  - Kelebihan: Dapat menggunakan pengetahuan domain atau persentil (misalnya, persentil ke-99) untuk membatasi nilai & Tidak bergantung pada asumsi distribusi normal.
+  - Kekurangan: Memerlukan pemilihan manual untuk nilai batas sehingga dapat kehilangan beberapa informasi jika penutupan terlalu agresif.
 
 
 ## Data Preparation
