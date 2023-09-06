@@ -48,7 +48,7 @@ Dataset berasal dari sebuah kompetisi kaggle yang diselenggarakan oleh The Actua
 - DaysWorkedPerWeek: Jumlah hari kerja per minggu
 - ClaimDescription: Deskripsi klaim dalam teks bebas
 - InitialIncurredClaimCost: Estimasi awal dari biaya klaim oleh perusahaan asuransi
-- UltimateIncurredClaimCost: Total pembayaran klaim oleh perusahaan asuransi. Ini adalah kolom yang Anda diminta untuk memprediksi dalam set tes.
+- UltimateIncurredClaimCost: Total pembayaran klaim oleh perusahaan asuransi. Ini adalah kolom yang diminta untuk memprediksi dalam set tes.
 
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
@@ -69,7 +69,7 @@ EDA dilakukan untuk memahami distribusi data dan hubungan antar variabel. Outlie
 
 
 - Fitur seperti "UpahMingguan," "JamBekerjaPerMinggu," "BiayaKlaimAwal," dan "BiayaKlaimAkhir" menunjukkan kecondongan (skewness) yang signifikan dan kemungkinan adanya pencilan (outliers).
-- "JamBekerjaPerMinggu" memiliki beberapa contoh di mana nilai-nilainya jauh lebih tinggi, yang bisa jadi adalah pencilan. Nilai maksimum 640 jam jelas merupakan pencilan, karena jauh lebih tinggi daripada nilai persentil ke-99 yaitu 60 jam. Metode yang saya sarankan untuk memperbaiki pencilan adalah Metode Penutupan (Capping Method).
+- "JamBekerjaPerMinggu" memiliki beberapa contoh di mana nilai-nilainya jauh lebih tinggi, yang bisa jadi adalah pencilan. Nilai maksimum 640 jam jelas merupakan pencilan, karena jauh lebih tinggi daripada nilai persentil ke-99 yaitu 60 jam. Metode yang dapat disarankan untuk memperbaiki pencilan adalah Metode Penutupan (Capping Method).
     - Kelebihan: Dapat menggunakan pengetahuan domain atau persentil (misalnya, persentil ke-99) untuk membatasi nilai & Tidak bergantung pada asumsi distribusi normal.
     - Kekurangan: Memerlukan pemilihan manual untuk nilai batas sehingga dapat kehilangan beberapa informasi jika penutupan terlalu agresif.
 
@@ -97,11 +97,11 @@ Setelah dimasukan ke fungsi tersebut, kemudian data di bagi menjadi 80% untuk pe
 ## Modeling
 Tiga model yang digunakan adalah XGBoost, LightGBM, dan CatBoost. Hyperparameter tuning dilakukan untuk meningkatkan performa model. Model - model tersebut secara singkat dapat dijelaskan sebagai berikut :
 - XGboost : Menggunakan pendekatan yang disebut "gradient boosting" pada pohon keputusan. Ini berarti model dibangun dengan cara iteratif, di mana setiap pohon baru berusaha memperbaiki kesalahan yang dibuat oleh kumpulan pohon yang sudah ada. XGBoost menggunakan fungsi tujuan yang dapat disesuaikan dan teknik regularisasi untuk menghindari overfitting. Ini membuatnya sangat fleksibel dan memungkinkan untuk mengoptimalkan berbagai jenis masalah prediksi.
-  > Bayangkan kamu sedang bermain permainan tebak-tebakan. Kamu punya banyak teman yang membantu kamu menebak jawabannya. Setiap teman mencoba menebak sedikit, dan kemudian teman berikutnya melihat apa yang sudah ditebak sebelumnya dan mencoba memperbaiki tebakan. Akhirnya, semua tebakan digabungkan untuk mendapatkan jawaban yang paling tepat.
+  > Bayangkan seorang anak sedang bermain permainan tebak-tebakan. Anak tersebut punya banyak teman yang membantu untuk menebak jawabannya. Setiap teman mencoba menebak sedikit, dan kemudian teman berikutnya melihat apa yang sudah ditebak sebelumnya dan mencoba memperbaiki tebakan. Akhirnya, semua tebakan digabungkan untuk mendapatkan jawaban yang paling tepat.
 - LightGBM : Menggunakan pohon keputusan seperti XGBoost dan CatBoost, tetapi dengan pendekatan yang disebut "histogram-based learning". Ini mempercepat proses pelatihan dan mengurangi penggunaan memori. LightGBM dirancang untuk efisiensi dan kecepatan, sehingga sangat cocok untuk dataset yang besar atau dimensi yang tinggi. LightGBM juga memiliki dukungan untuk pelatihan menggunakan GPU, yang bisa mempercepat proses lebih lanjut.
-  > Bayangkan kamu memiliki banyak kucing yang bisa berbicara, dan setiap kucing ini bisa membantu kamu menjawab pertanyaan dengan melihat apa yang ada di sekitar—seperti gambar atau kata-kata. Mereka semua membantu satu sama lain untuk memberikan jawaban yang paling akurat.
+  > Bayangkan seorang anak memiliki banyak kucing yang bisa berbicara, dan setiap kucing ini bisa membantu anak tersebut menjawab pertanyaan dengan melihat apa yang ada di sekitar—seperti gambar atau kata-kata. Mereka semua membantu satu sama lain untuk memberikan jawaban yang paling akurat.
 - CatBoost : Juga menggunakan pohon keputusan, tetapi dengan fokus khusus pada fitur kategorikal. Tidak perlu melakukan "one-hot encoding" atau transformasi serupa pada fitur kategorikal karena CatBoost dapat menanganinya secara otomatis. CatBoost memiliki mekanisme regularisasi bawaan yang membantu model menjadi lebih robust terhadap overfitting. Ini memungkinkan model untuk memberikan performa yang baik meskipun dengan data yang lebih sedikit atau lebih banyak noise.
-  > Bayangkan kamu membangun menara dari balok kayu. Tapi, alih-alih menumpuk balok satu per satu dari bawah ke atas, kamu mulai dari balok yang paling penting dulu, lalu menambahkan balok lainnya untuk membuat menara semakin kuat dan tinggi. Ini membantu kamu membangun menara lebih cepat dan lebih kuat.
+  > Bayangkan seorang anak membangun menara dari balok kayu. Tapi, alih-alih menumpuk balok satu per satu dari bawah ke atas, anak tersebut mulai dari balok yang paling penting dulu, lalu menambahkan balok lainnya untuk membuat menara semakin kuat dan tinggi. Ini membantu anak tersebut untuk membangun menara lebih cepat dan lebih kuat.
 
 
 - Kelebihan dan Kekurangan Algoritma
@@ -115,7 +115,7 @@ Tiga model yang digunakan adalah XGBoost, LightGBM, dan CatBoost. Hyperparameter
           - *Kelebihan*: Penanganan fitur kategorikal, robust terhadap overfitting.
           - *Kekurangan*:  Lambat dalam pelatihan, beberapa parameter kompleks.
 
-Dari ketiga model dilakukan pencarian parameter optimal menggunakan metode _RandomizedSearchCV_. XGBoost, LightGBM, dan CatBoost adalah algoritma yang sering digunakan dengan variasi parameter untuk meningkatkan performa. Misalnya, dalam XGBoost, kita menyetel learning_rate antara 0,02 dan 0,025 untuk mengontrol seberapa cepat model belajar, dan menggunakan max_depth antara 5 dan 7 untuk membatasi kedalaman pohon keputusan. Jumlah pohon (n_estimators) diatur menjadi 500, dan kita juga mengontrol persentase fitur dan sampel yang digunakan di setiap pohon melalui colsample_bytree dan subsample. Metode pelatihan pohon diatur ke 'hist'. LightGBM, di sisi lain, juga menggunakan learning_rate dan n_estimators yang mirip tetapi menambahkan parameter num_leaves untuk mengontrol jumlah daun maksimum di setiap pohon dan feature_fraction untuk bagian dari fitur yang digunakan. CatBoost juga memiliki pendekatan yang serupa; jumlah iterasi atau pohon diatur antara 100 dan 200, dan kedalaman pohon bisa 6, 8, atau 10. Untuk menghindari output log, logging_level di CatBoost diatur ke 'Silent'. Dengan penyetelan parameter ini, kita berusaha mendapatkan model yang paling optimal untuk data yang kita miliki.
+Dari ketiga model dilakukan pencarian parameter optimal menggunakan metode _RandomizedSearchCV_. XGBoost, LightGBM, dan CatBoost adalah algoritma yang sering digunakan dengan variasi parameter untuk meningkatkan performa. Misalnya, dalam XGBoost, dapat menyetel learning_rate antara 0,02 dan 0,025 untuk mengontrol seberapa cepat model belajar, dan menggunakan max_depth antara 5 dan 7 untuk membatasi kedalaman pohon keputusan. Jumlah pohon (n_estimators) diatur menjadi 500, dan dapat mengontrol persentase fitur dan sampel yang digunakan di setiap pohon melalui colsample_bytree dan subsample. Metode pelatihan pohon diatur ke 'hist'. LightGBM, di sisi lain, juga menggunakan learning_rate dan n_estimators yang mirip tetapi menambahkan parameter num_leaves untuk mengontrol jumlah daun maksimum di setiap pohon dan feature_fraction untuk bagian dari fitur yang digunakan. CatBoost juga memiliki pendekatan yang serupa; jumlah iterasi atau pohon diatur antara 100 dan 200, dan kedalaman pohon bisa 6, 8, atau 10. Untuk menghindari output log, logging_level di CatBoost diatur ke 'Silent'. Dengan penyetelan parameter ini, selanjutnya memilih model yang paling optimal untuk data tes berdasarkan metrik.
 
 ###Berikut faktor pengaruh pada setiap model
 ![xgbfactor](https://github.com/avocadojj/ac_ml/assets/56474181/41acd467-f325-4ddb-a4f6-8570da9acbd7)
@@ -125,7 +125,7 @@ Untuk percobaan, digunakan model gabungan yang terdiri atas 0.4 XGBoost + 0.3 Li
 
 
 ## Evaluation
-Metrik yang digunakan adalah RMSE (_Root Mean Squared Error_) dan MAE (_Mean Absolute Error_) dan saya membentuk business metrics sendiri. 
+Metrik yang digunakan adalah RMSE (_Root Mean Squared Error_) dan MAE (_Mean Absolute Error_) dan membentuk business metrics sendiri. 
 RMSE adalah akar kuadrat dari rata-rata perbedaan antara nilai yang diprediksi dan nilai sebenarnya. Ini memberikan ide tentang seberapa besar kesalahan model dalam unit yang sama dengan variabel target. Nilai RMSE yang lebih rendah menunjukkan model yang lebih baik.
 MSE adalah rata-rata dari kuadrat perbedaan antara nilai yang diprediksi dan nilai sebenarnya. Sama seperti RMSE, nilai yang lebih rendah menunjukkan model yang lebih baik, tetapi MSE lebih sensitif terhadap outlier karena perbedaan dikuadratkan.
 
